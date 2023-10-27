@@ -6,7 +6,7 @@ import { PlayerData } from "../datacoreModels/player";
 import { createHash } from "crypto";
 import { calculateBuffConfig } from "../datacoreUtils/profiletools";
 
-export function createProfileObject(dbid: string, player_data: any, lastUpdate: Date) {
+function createProfileObject(dbid: string, player_data: any, lastUpdate: Date) {
 	if (!player_data || !player_data.player || !player_data.player.character || player_data.player.dbid.toString() !== dbid) {
 		throw new Error('Invalid player_data!');
 	}
@@ -35,7 +35,6 @@ export async function getProfile(dbid: number | string) {
 
     return res;
 }
-
 
 export async function postOrPutProfile(dbid: number, player_data: PlayerData, timeStamp: Date = new Date()) {    
     if (collections.profiles) {        
@@ -72,19 +71,19 @@ export async function postOrPutProfile(dbid: number, player_data: PlayerData, ti
     return 500;
 }
 
-export async function mongoDeleteProfile(dbid: number) {
+export async function deleteProfile(dbid: number) {
     if (collections.profiles) {
         await collections.profiles.deleteMany({ dbid: dbid });
     }
 }
 
-export async function mongoDeleteUser(discordId: string) {
+export async function deleteUser(discordId: string) {
     if (collections.users) {
         await collections.users.deleteMany({ discordUserId: discordId });
     }
 }
 
-export async function mongoGetUserByDiscordId(discordId: string) {
+export async function getUserByDiscordId(discordId: string) {
 
     if (collections.users) {
         let result = await collections.users.findOne<User>({ discordUserId: discordId });
@@ -96,16 +95,16 @@ export async function mongoGetUserByDiscordId(discordId: string) {
     return undefined;
 }
 
-export async function mongoUpsertDiscordUser(user: IMongoUser) {
+export async function upsertDiscordUser(user: IMongoUser) {
 
     if (collections.users) {
         
         if (!user.creationDate) user.creationDate = new Date();
         user.profiles ??= [];
-        let test = await mongoGetUserByDiscordId(user.discordUserId);
+        let test = await getUserByDiscordId(user.discordUserId);
         
         if (test) {
-            await mongoDeleteUser(user.discordUserId);
+            await deleteUser(user.discordUserId);
             user = { ...test, ...user };
         }
 
@@ -116,7 +115,7 @@ export async function mongoUpsertDiscordUser(user: IMongoUser) {
                 return { ...user, id: result.insertedId } as User;
             }
             else {
-                return mongoGetUserByDiscordId(user.discordUserId);
+                return getUserByDiscordId(user.discordUserId);
             }
         }
     }
