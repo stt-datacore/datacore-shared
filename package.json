@@ -1,0 +1,30 @@
+{
+  "name": "nodejs-shared",
+  "author": "ironyWrit",
+  "version": "0.1.0",
+  "description": "Shared models and code for StarTrek Timelines DataCore Node.js Projects",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "serve": "node build/index.js",
+    "start": "npm run build && npm run serve"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "moment": "^2.29.4",
+    "mongodb": "^6.2.0",
+    "node-cache": "^5.1.1",
+    "node-fetch": "^2.6.1",
+    "pg": "^8.3.3"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.32",
+    "@types/mongodb": "^4.0.7",
+    "@types/node": "^14.18.63",
+    "@types/node-fetch": "^2.5.7",
+    "@types/validator": "^13.1.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
+  }
+}
