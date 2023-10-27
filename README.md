@@ -1,2 +1,3 @@
-# nodejs-shared
-Shared models and logic between Node.JS projects
+# datacore-shared
+
+Shared models and logic between Node.js projects
