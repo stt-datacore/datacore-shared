@@ -6,6 +6,7 @@ export interface EquipmentCommon extends PlayerEquipmentItem {
   type: number
   name: string
   flavor: string
+  //flavorContext?: JSX.Element;
   rarity: number
   short_name?: string
   imageUrl: string
@@ -14,6 +15,13 @@ export interface EquipmentCommon extends PlayerEquipmentItem {
   needed?: number;
   factionOnly?: boolean;
   demandCrew?: string[];
+
+  duration?: number;
+  max_rarity_requirement?: number;
+  traits_requirement_operator?: string; // "and" | "or" | "not" | "xor";
+  traits_requirement?: string[];  
+  kwipment?: boolean;
+  kwipment_id?: number | string;
 }
 
 export interface EquipmentItem extends EquipmentCommon {
